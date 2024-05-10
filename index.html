@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Auth0 Omni Login</title>
+	</head>
+	<body>
+		<script>
+			const urlParams = new URLSearchParams(window.location.search);
+			const state = urlParams.get('state');
+			window.universal_login_transaction_data = {
+				locale: 'locale',
+				prompt: { name: 'signup-id' },
+				screen: { name: 'signup-id' },
+				client: {
+					id: 'state.client.clientID',
+					name: 'state.client.name',
+				},
+				organization: {
+					id: 'state.organization.id',
+					name: 'state.organization.name',
+				},
+				tenant: { name: 'tenant.name', friendly_name: 'tenant.friendly_name' },
+				captcha: { enabled: true },
+				errors: [
+					{
+						message: 'errors.message',
+						code: 'errors.code',
+						field: 'errors.field',
+					},
+				],
+				unsafe_data: {
+					submitted_form_data: {
+						username: 'filteredState.username',
+						email: 'filteredState.email',
+						phone_number: 'filteredState.phone_number',
+					},
+					transaction_params: {
+						'ext-param': 'state.extParams.ext-param',
+					},
+				},
+				links: {
+					forgot_password: 'state.forgotPasswordLink',
+					signup: 'state.signUpLink',
+				},
+				state: 'state.state',
+				country_code: {
+					code: 'filteredState.countryCode.code',
+					prefix: 'filteredState.countryCode.prefix',
+				},
+				actions: {
+					pick_country_code: 'filteredState.pickCountryCodeAction',
+				},
+			};
+		</script>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
+</html>
