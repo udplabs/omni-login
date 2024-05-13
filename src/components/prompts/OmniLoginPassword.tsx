@@ -1,5 +1,5 @@
 import { redirect } from 'react-router-dom';
-import { ButtonAction, Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
+import { Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
 import { isOmni, pwd, state, updateTxData, username } from 'signals';
 import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'functions';
 
