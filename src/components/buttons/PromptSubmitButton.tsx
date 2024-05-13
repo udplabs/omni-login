@@ -10,7 +10,7 @@ export const PromptSubmitButton = ({
 	...attributes
 }: React.PropsWithChildren<IPromptSubmitButtonProps>) => {
 	return (
-		<Button type='submit' name='action' value={value ?? 'default'} className='mt-4 block w-full py-4' {...attributes}>
+		<Button type='submit' name='action' value={value ?? 'default'} className='primary' {...attributes}>
 			{children}
 		</Button>
 	);

@@ -62,12 +62,10 @@ export const PromptForm = ({
 			}}
 		>
 			<input type='hidden' name='state' value={state.value} />
-			<img
-				className='h-[52px] mx-auto mb-6'
-				src='https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png'
-				height='52'
-			/>
-			<h1 className='text-center text-2xl mb-4'>{title}</h1>
+			<div className='logo' />
+			<h1 className='text-center text-2xl mb-4' style={{ marginTop: '24px' }}>
+				{title}
+			</h1>
 			{description && <Text className='text-center'>{description}</Text>}
 			<PromptErrors className='mb-4' />
 			{/* If social_buttons_layout is top it could re-order these via HTML instead of css (in ULP) */}
