@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import { Router } from './Router';
 import 'styles/index.css';
 
 const rootElement = document.createElement('div');
@@ -13,7 +13,7 @@ document.body.style.overflow = 'hidden';
 ReactDOM.createRoot(rootElement!).render(
 	<React.StrictMode>
 		<BrowserRouter basename='/u'>
-			<App />
+			<Router />
 		</BrowserRouter>
 	</React.StrictMode>
 );
