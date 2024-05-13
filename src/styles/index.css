@@ -1,6 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+/* @import url('https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	/* colors */
+	--black: #000000;
+	--white: #ffffff;
+	--primary-color: #635dff;
+	--page-background: var(--black);
+
+	--primary-button-color: var(--primary-color);
+	/* primary-button-color w/ 0.26 alpha */
+	--primary-button: rgb(99, 93, 255, .26);
+	--primary-button-label: var(--white);
+
+	--secondary-button: var(--white);
+	--secondary-button-border: #c9cace;
+	--secondary-button-label-color: #1e212a;
+	/* secondary-button-label-color w/ 0.26 alpha */
+	--secondary-button-label: rgba(30, 33, 42, .26);
+
+	--base-focus-hex-color: var(--primary-color);
+	/* base-focus-hex-color w/ 0.15 alpha */
+	--base-focus-color: rgb(99, 93, 255, .15);
+
+	--base-hover-hex-color: var(--black);
+	/* base-hover-hex-color w/ 0.1 alpha */
+	--base-hover-color: rgba(0, 0, 0, .1);
+	--links-focused-components: var(--primary-color);
+	--header: var(--secondary-button-color);
+	--body-text: var(--secondary-button-label);
+	--widget-background: var(--white);
+	--widget-border: var(--secondary-button-border);
+	--input-labels-placeholders: #65676e;
+	--input-filled-text: var(--black);
+	--input-border: var(--secondary-button-border);
+	--input-background: var(--white);
+	--icons: var(var(--input-labels-placeholders))
+	--error: #d03c38;
+	--success: #13a688;
+	/* --captcha-widget-theme: "light" */
+
+	/* fonts */
+	--reference-text-size: 16px;
+	--base-line-height: 1.1;
+
+	--title-font-weight: normal;
+	--title-font-size: calc(var(--reference-text-size) * 1.5);
+
+	--subtitle-font-weight: normal;
+	--subtitle-font-size: calc(var(--reference-text-size) * 0.875);
+
+	--body-font-weight: normal;
+	--body-font-size: calc(var(--reference-text-size) * 0.875);
+
+	--button-font-weight: normal;
+	--button-font-size: calc(var(--reference-text-size) * 1);
+
+	--input-labels-font-weight: normal;
+	--input-labels-font-size: calc(var(--reference-text-size) * 1);
+
+	--link-font-weight: bold;
+	--link-font-style: normal;
+	--link-font-size: calc(var(--reference-text-size) * 0.875);
+
+	/* borders */
+	--button-border-weight: 1px;
+	--button-border-radius: 8px;
+	--input-border-weight: 1px;
+	--input-border-radius: 8px;
+	--widget-corner-radius: 8px;
+	--widget-border-weight: 0px;
+	--widget-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+	/* inputs */
+	--input-height: 52px;
+
+	/* widget */
+	--logo-position: center;
+	--logo-height: 52px;
+	--header-text-alignment: 'center';
+	/* --social-buttons-layout: "bottom"; */
+
+	/* page */
+	/* --page-layout: "center"; */
+	--page-background-image-url: '';
+}
 
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
@@ -12,5 +99,167 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  transition: background-color 0s 600000s, color 0s 600000s !important;
+	transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+
+body {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: var(--body-font-size);
+	font-weight: var(--body-font-weight);
+	background-color: var(--page-background-color);
+}
+
+a {
+	font-size: var(--link-font-size);
+	font-weight: var(--link-font-weight);
+	font-style: var(--link-font-style);
+	color: var(--links-focused-components);
+}
+
+a:hover {
+	background-color: unset;
+	box-shadow: unset;
+	color: var(--links-focused-components);
+}
+
+button {
+	border-radius: var(--button-border-radius);
+	border-width: var(--button-border-weight);
+	height: 52px;
+}
+
+button.primary {
+	background-color: var(--primary-button-color);
+	color: var(--primary-button-label);
+	border-color: unset;
+	border-radius: var(--button-border-radius);
+	border-width: var(--button-border-weight);
+	width: 100%;
+	padding: 4px 16px;
+	align-items: center;
+	margin-top: 24px;
+}
+
+button.secondary {
+	background-color: var(--secondary-button);
+	color: var(--secondary-button-label);
+	border: var(--button-border-weight) solid var(--secondary-button-border)
+}
+
+button.secondary:hover {
+	background-color: var(--secondary-button);
+}
+
+button:focus-visible {
+	background-color: var(--base-focus-color);
+	border-color: var(--base-focus-color);
+	box-shadow: 0 0 0 4px var(--base-focus-color);
+}
+
+button:hover {
+	box-shadow: 0 0 0 150px var(--base-hover-color) inset;
+}
+
+
+button:disabled {
+	background-color: var(--primary-button);
+	color: var(--secondary-button-label);
+}
+
+.error {
+	color: var(--error);
+}
+
+h1 {
+	font-size: var(--title-font-size);
+	font-weight: var(--title-font-weight);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--header)
+}
+
+input {
+	appearance: none;
+	background-color: var(--input-background);
+	border: var(--input-border-weight) solid var(--input-border);
+	color: var(--input-filled-text);
+	font-family: 'inherit';
+	font-size: var(--input-labels-font-size);
+	font-weight: var(--input-labels-font-weight);
+	border-radius: var(--input-border-radius);
+	border-width: var(--input-border-weight);
+	padding: 0px 16px;
+	line-height: var(--base-line-height);
+	height: var(--input-height);
+	transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+	outline: none;
+	width: 100%;
+
+}
+
+input:focus,
+input:focus-within {
+	border-color: var(--base-focus-hex-color);
+	box-shadow: 0 0 0 1px var(--base-focus-color);
+	outline: none;
+}
+
+input:not(:-webkit-autofill) {
+	animation-name: onAutoFillFlash;
+}
+
+input:read-only {
+	cursor: default;
+	text-overflow: ellipsis;
+}
+
+label {
+	color: var(--input-labels-placeholders);
+	background-color: var(--input-background);
+	padding: 1px 6px;
+	max-width: 90%;
+		line-height: var(--base-line-height);
+	text-overflow: ellipsis;
+	left: 16px;
+	position: absolute;
+	font-size: var(--input-labels-font-size);
+	pointer-events: none;
+}
+
+label:has(+ input:focus),
+label:has(+ input:focus-within) {
+	color: var(--base-focus-hex-color);
+
+}
+
+.logo {
+	background-image: url('https://cdn.cookielaw.org/logos/5b38f79c-c925-4d4e-af5e-ec27e97e1068/a8ecea4b-b503-41c2-a476-0045248bb118/b40f74f0-26a4-42fa-87fe-7ce24c52a058/Auth0byOkta_lockup_rgb_blk.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: var(--logo-height);
+	background-position: center;
+	margin-bottom: 6px;
+	margin: auto;
+	width: 100%;
+}
+
+.subtitle {
+	font-size: var(--subtitle-font-size);
+	font-weight: var(--subtitle-font-weight);
+}
+
+button + .subtitle {
+	margin-top: 16px;
+}
+
+.widget {
+	border-radius: var(--widget-corner-radius);
+	border-width: var(--widget-border-weight);
+	box-shadow: var(--widget-box-shadow);
 }

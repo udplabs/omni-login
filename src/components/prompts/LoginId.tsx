@@ -19,7 +19,7 @@ export const LoginId = () => {
 		>
 			<Input type='email' label='Email address' name='username' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
-			<Text className='text-center'>
+			<Text>
 				Don't have an account? <StyledLink link='signup'>Sign up</StyledLink>
 			</Text>
 			<DetectBrowserCapabilities />

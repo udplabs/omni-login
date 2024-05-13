@@ -160,14 +160,11 @@ export const OmniLoginPassword = () => {
 				description: 'Set your password for login0 to continue to All Applications',
 			}}
 		>
-			<InputEditLink label='Email address' name='email' link='edit_email' />
+			<InputEditLink label='Email address*' name='email' link='edit_email' />
 			<Input label='Password' name='password' type='password' autoComplete='current-password' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
-			<Text className='text-center'>
+			<Text>
 				Already have an account? <StyledLink link='login'>Log in</StyledLink>
-			</Text>
-			<Text className='text-center'>
-				<ButtonAction action='back'>Go back</ButtonAction>
 			</Text>
 		</PromptForm>
 	);
