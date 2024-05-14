@@ -13,22 +13,22 @@
 
 	--primary-button-color: var(--primary-color);
 	/* primary-button-color w/ 0.26 alpha */
-	--primary-button: rgb(99, 93, 255, .26);
+	--primary-button: rgb(99, 93, 255, 0.26);
 	--primary-button-label: var(--white);
 
 	--secondary-button: var(--white);
 	--secondary-button-border: #c9cace;
 	--secondary-button-label-color: #1e212a;
 	/* secondary-button-label-color w/ 0.26 alpha */
-	--secondary-button-label: rgba(30, 33, 42, .26);
+	--secondary-button-label: rgba(30, 33, 42, 0.26);
 
 	--base-focus-hex-color: var(--primary-color);
 	/* base-focus-hex-color w/ 0.15 alpha */
-	--base-focus-color: rgb(99, 93, 255, .15);
+	--base-focus-color: rgb(99, 93, 255, 0.15);
 
 	--base-hover-hex-color: var(--black);
 	/* base-hover-hex-color w/ 0.1 alpha */
-	--base-hover-color: rgba(0, 0, 0, .1);
+	--base-hover-color: rgba(0, 0, 0, 0.1);
 	--links-focused-components: var(--primary-color);
 	--header: var(--secondary-button-color);
 	--body-text: var(--secondary-button-label);
@@ -38,7 +38,7 @@
 	--input-filled-text: var(--black);
 	--input-border: var(--secondary-button-border);
 	--input-background: var(--white);
-	--icons: var(var(--input-labels-placeholders))
+	--icons: var(var(--input-labels-placeholders));
 	--error: #d03c38;
 	--success: #13a688;
 	/* --captcha-widget-theme: "light" */
@@ -143,7 +143,7 @@ button.primary {
 button.secondary {
 	background-color: var(--secondary-button);
 	color: var(--secondary-button-label);
-	border: var(--button-border-weight) solid var(--secondary-button-border)
+	border: var(--button-border-weight) solid var(--secondary-button-border);
 }
 
 button.secondary:hover {
@@ -159,7 +159,6 @@ button:focus-visible {
 button:hover {
 	box-shadow: 0 0 0 150px var(--base-hover-color) inset;
 }
-
 
 button:disabled {
 	background-color: var(--primary-button);
@@ -181,7 +180,7 @@ h3,
 h4,
 h5,
 h6 {
-	color: var(--header)
+	color: var(--header);
 }
 
 input {
@@ -197,10 +196,9 @@ input {
 	padding: 0px 16px;
 	line-height: var(--base-line-height);
 	height: var(--input-height);
-	transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+	transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
 	outline: none;
 	width: 100%;
-
 }
 
 input:focus,
@@ -224,7 +222,7 @@ label {
 	background-color: var(--input-background);
 	padding: 1px 6px;
 	max-width: 90%;
-		line-height: var(--base-line-height);
+	line-height: var(--base-line-height);
 	text-overflow: ellipsis;
 	left: 16px;
 	position: absolute;
@@ -235,7 +233,6 @@ label {
 label:has(+ input:focus),
 label:has(+ input:focus-within) {
 	color: var(--base-focus-hex-color);
-
 }
 
 .logo {
@@ -244,8 +241,6 @@ label:has(+ input:focus-within) {
 	background-size: contain;
 	height: var(--logo-height);
 	background-position: center;
-	margin-bottom: 6px;
-	margin: auto;
 	width: 100%;
 }
 
@@ -262,4 +257,158 @@ button + .subtitle {
 	border-radius: var(--widget-corner-radius);
 	border-width: var(--widget-border-weight);
 	box-shadow: var(--widget-box-shadow);
+}
+
+.auth0-spinner-container {
+	background-color: rgba(255, 255, 255, 0.8);
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	pointer-events: all;
+}
+
+.auth0-spinner {
+	-webkit-animation: fadeIn 0.5s linear;
+	animation: fadeIn 0.5s linear;
+	z-index: 1000;
+}
+
+.auth0-spinner:before {
+	content: '';
+	display: block;
+	background: url('https://cdn.auth0.com/blog/hub/code-samples/hello-world/auth0-logo.svg');
+	filter: brightness(0%);
+	height: 48px;
+	width: 48px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: inline-block;
+	top: 48%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	position: absolute;
+}
+
+.auth0-spinner .spinner {
+	margin: 6em auto;
+	font-size: 10px;
+	position: relative;
+	text-indent: -9999em;
+	border-top: 0.6em solid rgba(255, 255, 255, 0.2);
+	border-right: 0.6em solid rgba(255, 255, 255, 0.2);
+	border-bottom: 0.6em solid rgba(255, 255, 255, 0.2);
+	border-left: 0.6em solid var(--primary-color);
+	-webkit-animation: loaderAnim 0.8s infinite linear;
+	animation: loaderAnim 0.8s infinite linear;
+}
+
+.auth0-spinner .spinner,
+.auth0-spinner .spinner:after {
+	border-radius: 50%;
+	width: 10em;
+	height: 10em;
+}
+
+.form-container {
+	position: relative;
+}
+
+@-webkit-keyframes loaderAnim {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-moz-keyframes loaderAnim {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes loaderAnim {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-o-keyframes loaderAnim {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes loaderAnim {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-o-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }

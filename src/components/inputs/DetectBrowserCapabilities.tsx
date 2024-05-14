@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'functions';
+import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'utils';
 
 export const DetectBrowserCapabilities = () => {
 	const [jsAvailable, setJsAvailable] = useState(false);

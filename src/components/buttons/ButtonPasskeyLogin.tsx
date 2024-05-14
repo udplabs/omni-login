@@ -1,6 +1,6 @@
 import passkeyLogo from 'assets/passkey-logo.svg';
 import { ButtonWhite } from 'components';
-import { isWebauthnPlatformAvailable, uint8ArrayToBase64Url } from 'functions';
+import { isWebauthnPlatformAvailable, uint8ArrayToBase64Url } from 'utils';
 import { public_key } from 'signals';
 
 export const ButtonPasskeyLogin = () => {
