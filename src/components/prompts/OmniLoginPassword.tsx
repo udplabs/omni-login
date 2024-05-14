@@ -63,11 +63,9 @@ export const OmniLoginPassword = () => {
 
 			const redirectUri = response.headers.get('Location');
 
-			if (follow) {
-				console.log(response);
-			}
+			console.log(response);
 
-			if (response.status !== 302) {
+			if (!response.url.includes('/consent') && response.status !== 302) {
 				// Not a redirect, let's update the transaction_data
 				const html = await response.text(); // Get the HTML content of the response;
 				const scriptTag = document.createElement('div');
