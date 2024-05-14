@@ -47,11 +47,11 @@ declare global {
 			name: string;
 		}
 
-		interface Prompt<T extends UL.ScreenPrompt = 'login-id'> {
+		interface Prompt<T extends UL.ScreenPrompt = 'passkeys'> {
 			name: T;
 		}
 
-		interface Screen<T extends UL.ScreenName = 'login-id'> {
+		interface Screen<T extends UL.ScreenName = 'passkey-enrollment'> {
 			name: T;
 
 			// Unsure if this is actually in the 'spec'

@@ -4,34 +4,7 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({ children, type, className, ...attributes }: React.PropsWithChildren<IButtonProps>) => {
 	return (
-		<button
-			// className={`
-			//   bg-blue-700
-
-			//   text-center
-			//   font-normal
-			//   text-white
-
-			//   rounded
-
-			//   px-1
-			//   mb-2
-
-			//   hover:bg-blue-800
-
-			//   focus:outline focus:outline-4
-			//   focus:outline-sky-700/15
-
-			//   disabled:bg-gray-400
-			//   disabled:default-cursor
-
-			//   primary
-
-			//   ${className ?? ''}
-			// `}
-			type={type ?? 'button'}
-			{...{ className, ...attributes }}
-		>
+		<button type={type ?? 'button'} {...{ className, ...attributes }}>
 			{children}
 		</button>
 	);

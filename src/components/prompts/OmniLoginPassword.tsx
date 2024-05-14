@@ -1,14 +1,15 @@
 import { redirect } from 'react-router-dom';
 import { Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
-import { isOmni, pwd, state, updateTxData, username } from 'signals';
-import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'functions';
+import { isLoading, isOmni, pwd, state, updateTxData, username } from 'signals';
+import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'utils';
 
 export const OmniLoginPassword = () => {
 	const onSubmit: React.FormEventHandler = async (event) => {
 		event.preventDefault();
-
 		function updateWindow(data?: UL.TransactionData) {
+			console.log('manually updating window...');
 			if (!!data) {
+				console.log(JSON.stringify(data, null, 2));
 				(window as any).universal_login_transaction_data = data;
 			}
 		}
@@ -62,11 +63,9 @@ export const OmniLoginPassword = () => {
 
 			const redirectUri = response.headers.get('Location');
 
-			if (follow) {
-				console.log(response);
-			}
+			console.log(response);
 
-			if (response.status !== 302) {
+			if (!response.url.includes('/consent') && response.status !== 302) {
 				// Not a redirect, let's update the transaction_data
 				const html = await response.text(); // Get the HTML content of the response;
 				const scriptTag = document.createElement('div');
@@ -82,10 +81,6 @@ export const OmniLoginPassword = () => {
 						decoded = JSON.parse(atob(base64String));
 
 						if (decoded) {
-							console.group('=== PARSED_DATA ===');
-							console.log(JSON.stringify(decoded, null, 2));
-							console.groupEnd();
-
 							updateWindow(decoded);
 						}
 					}
@@ -100,10 +95,13 @@ export const OmniLoginPassword = () => {
 			return { redirectUri, tx_data: decoded, response };
 		}
 
-		console.log('submitting form...');
-
 		try {
 			if (!!username.value && !!pwd.value) {
+				console.log('submitting form...');
+
+				// Set the loader
+				isLoading.value = true;
+
 				// This is our first call to /signup/password
 				const signupPasswordRes = await doFetch('signup-password', { username: username.value, password: pwd.value });
 
@@ -142,9 +140,6 @@ export const OmniLoginPassword = () => {
 						isOmni.value = true;
 						updateTxData(loginIdRes.tx_data);
 					}
-
-					// Now we can actually login
-					// await doFetch('login-password', { username: username.value, password: pwd.value }, { follow: true });
 				}
 			}
 		} catch (error: unknown) {

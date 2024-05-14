@@ -1,16 +1,17 @@
 import { computed, effect, signal } from '@preact/signals-react';
 
 import { DEFAULT_SCREEN_PROMPT, DEFAULT_SCREEN } from '../constants';
-import base64UrlToUint8Array from '../functions/base64-url-to-uint8-array';
+import { base64UrlToUint8Array } from 'utils';
 
 let tx_data = (window as any).universal_login_transaction_data as UL.TransactionData;
 
 effect(() => {
-	console.group('=== TX DATA ===');
+	console.group('=== SIGNALS: TX DATA ===');
 	console.log(JSON.stringify(tx_data, null, 2));
 	console.groupEnd();
 });
 
+export const isLoading = signal(false);
 export const otherTxData = signal<Partial<UL.TransactionData>>({});
 export const actions = signal<UL.TransactionAction>(tx_data.actions);
 export const errors = signal(tx_data.errors || []);
@@ -60,28 +61,12 @@ export function updateTxData(data: UL.TransactionData) {
 
 	console.log(JSON.stringify(data, null, 2));
 
-	if (data?.actions) {
-		actions.value = data.actions;
-	}
-	if (data?.errors) {
-		errors.value = data.errors;
-	}
-	if (data?.links) {
-		links.value = data.links;
-	}
-	if (data?.prompt?.name) {
-		prompt.value = data.prompt.name;
-	}
-	if (data?.screen?.name) {
-		screen.value = data.screen.name;
-	}
-	if (data?.state) {
-		state.value = data.state;
-	}
-	if (data?.unsafe_data?.submitted_form_data) {
-		submitted_form_data.value = data.unsafe_data.submitted_form_data;
-	}
-	if (data?.passkey_config) {
-		passkey_config.value = data.passkey_config;
-	}
+	actions.value = data?.actions ?? actions.value;
+	errors.value = data.errors ?? errors.value;
+	links.value = data.links ?? links.value;
+	prompt.value = data.prompt?.name;
+	screen.value = data.screen?.name;
+	state.value = data.state;
+	submitted_form_data.value = data.unsafe_data?.submitted_form_data ?? submitted_form_data.value;
+	passkey_config.value = data?.passkey_config ?? passkey_config.value;
 }
