@@ -1,4 +1,3 @@
-import { redirect } from 'react-router-dom';
 import { Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
 import { isLoading, isOmni, pwd, state, updateTxData, username } from 'signals';
 import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'utils';
@@ -19,7 +18,7 @@ export const OmniLoginPassword = () => {
 			data: UL.FormData,
 			options?: { follow?: boolean; method?: 'GET' | 'POST' }
 		) {
-			const { follow = false, method = 'POST' } = options || {};
+			const { follow = true, method = 'POST' } = options || {};
 
 			let decoded: UL.TransactionData = (window as any).universal_login_transaction_data;
 
@@ -54,19 +53,33 @@ export const OmniLoginPassword = () => {
 
 			url += `?state=${state.value}`;
 
+			// If we do not automatically follow a 302, we get back an opaque response and are unable to continue.
+			// We need to allow fetch to follow any redirects and then handle accordingly.
 			const response = await fetch(url, {
 				method,
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 				body: method === 'GET' ? undefined : new URLSearchParams({ action: 'default', state: state.value, ...data }),
-				redirect: follow ? 'manual' : undefined,
+				redirect: !follow ? 'manual' : undefined,
 			});
-
-			const redirectUri = response.headers.get('Location');
 
 			console.log(response);
 
-			if (!response.url.includes('/consent') && response.status !== 302) {
-				// Not a redirect, let's update the transaction_data
+			let redirectUri = response.headers.get('Location');
+
+			const redirectRegex = /\/callback|\/consent/;
+			if (!redirectUri && response.status === 200 && redirectRegex.test(response.url)) {
+				// Response is the result of automatically following a 302 and we should redirect.
+				console.log('setting 200 redirect...');
+				redirectUri = response.url;
+			}
+
+			// Unless explicitly told NOT to follow, if there is a redirectUri, follow it.
+			if (follow && !!redirectUri) {
+				console.log('redirecting...');
+
+				return window.location.assign(redirectUri);
+			} else if (response.status !== 302) {
+				// Not an explicit redirect, let's update the transaction_data
 				const html = await response.text(); // Get the HTML content of the response;
 				const scriptTag = document.createElement('div');
 				scriptTag.innerHTML = html; // Create a temporary DOM element to parse the HTML
@@ -84,11 +97,6 @@ export const OmniLoginPassword = () => {
 							updateWindow(decoded);
 						}
 					}
-				}
-			} else {
-				if (redirectUri && follow) {
-					console.log('redirecting...');
-					redirect(redirectUri, response);
 				}
 			}
 
