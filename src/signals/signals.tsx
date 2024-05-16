@@ -1,7 +1,8 @@
 import { computed, effect, signal } from '@preact/signals-react';
 
-import { DEFAULT_SCREEN_PROMPT, DEFAULT_SCREEN } from '../constants';
-import { base64UrlToUint8Array } from 'utils';
+import { base64UrlToUint8Array, getSocialConnections } from 'utils';
+
+const { VITE_DEFAULT_SCREEN_PROMPT: DEFAULT_SCREEN_PROMPT, VITE_DEFAULT_SCREEN: DEFAULT_SCREEN } = import.meta.env;
 
 let tx_data = (window as any).universal_login_transaction_data as UL.TransactionData;
 
@@ -14,6 +15,7 @@ effect(() => {
 export const isLoading = signal(false);
 export const otherTxData = signal<Partial<UL.TransactionData>>({});
 export const actions = signal<UL.TransactionAction>(tx_data.actions);
+export const client = signal<UL.Client>(tx_data.client);
 export const errors = signal(tx_data.errors || []);
 export const fieldErrors = signal<UL.Error[]>([]);
 export const links = signal(tx_data.links);
@@ -55,6 +57,7 @@ export const public_key = computed<PublicKeyCredentialCreationOptions | PublicKe
 	}
 );
 export const promptErrors = computed(() => errors.value.filter((e) => !e.usedField));
+export const socialConnections = computed(() => getSocialConnections(client.value.id));
 
 export function updateTxData(data: UL.TransactionData) {
 	tx_data = data;
@@ -62,6 +65,7 @@ export function updateTxData(data: UL.TransactionData) {
 	console.log(JSON.stringify(data, null, 2));
 
 	actions.value = data?.actions ?? actions.value;
+	client.value = data?.client ?? client.value;
 	errors.value = data.errors ?? errors.value;
 	links.value = data.links ?? links.value;
 	prompt.value = data.prompt?.name;

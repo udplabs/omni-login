@@ -1,4 +1,4 @@
-import { Input, PromptForm, PromptSubmitButton, StyledLink, Text } from '..';
+import { Button, Input, PromptForm, PromptSubmitButton, Text } from '..';
 
 export const Login = () => {
 	return (
@@ -6,11 +6,11 @@ export const Login = () => {
 			<Input label='Email address' name='username' autoFocus />
 			<Input label='Password' type='password' name='password' />
 			<Text>
-				<StyledLink link='forgot_password'>Forgot password?</StyledLink>
+				<Button link='forgot_password'>Forgot password?</Button>
 			</Text>
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 			<Text className='text-center'>
-				Don't have an account? <StyledLink link='signup'>Sign up</StyledLink>
+				Don't have an account? <Button link='signup'>Sign up</Button>
 			</Text>
 		</PromptForm>
 	);

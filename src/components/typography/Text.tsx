@@ -3,5 +3,5 @@ interface ITextProps {
 }
 
 export const Text = ({ children, className }: React.PropsWithChildren<ITextProps>) => {
-	return <p className={`text-sm mb-4 text-gray-80 subtitle ${className ?? ''} relative`}>{children}</p>;
+	return <p className={`subtitle ${className ?? ''}`}>{children}</p>;
 };

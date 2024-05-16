@@ -2,16 +2,25 @@ import { FieldError } from 'components/inputs/FieldError';
 import basicInputClasses from './BasicInput.module.css';
 
 interface IBasicInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	label: string;
+	label?: string;
 	errors: UL.Error[];
 	postInput?: JSX.Element;
+	ContainerProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
-export const BasicInput = ({ errors, readOnly, label, type, postInput, ...attributes }: IBasicInputProps) => {
+export const BasicInput = ({
+	ContainerProps,
+	errors,
+	readOnly,
+	label,
+	type,
+	postInput,
+	...attributes
+}: IBasicInputProps) => {
 	const name = attributes.name;
 	const id = attributes.id || name;
 
-	const containerClassNames = ['mb-2', 'relative', 'w-full', 'flex'];
+	const containerClassNames = ['input-wrapper', ContainerProps?.className ?? ''];
 
 	if (errors?.length) {
 		containerClassNames.push('border-red-600', 'text-red-600');
@@ -20,12 +29,10 @@ export const BasicInput = ({ errors, readOnly, label, type, postInput, ...attrib
 		}
 	}
 
-	const containerClassName = containerClassNames.join(' ');
-
 	return (
 		<>
-			<div className={containerClassName}>
-				<label className={basicInputClasses.label} htmlFor={id}>
+			<div {...{ ...ContainerProps, className: containerClassNames.join(' ') }}>
+				<label className={basicInputClasses.label} style={{ display: !label ? 'none' : undefined }} htmlFor={id}>
 					{label}
 				</label>
 				<input type={type || 'text'} placeholder={' '} {...attributes} id={id} readOnly={readOnly} />

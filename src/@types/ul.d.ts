@@ -69,6 +69,18 @@ declare global {
 			| 'signup-password'
 			| 'passkeys';
 
+		interface SocialConnection {
+			clientId: string;
+			connections: string[];
+		}
+
+		interface SocialConnections {
+			[key: string]: {
+				name: string;
+				icon: string;
+			};
+		}
+
 		interface Tenant {
 			name: string;
 			friendly_name: string;

@@ -1,5 +1,4 @@
-import { ButtonAction, ButtonPasskeySignup, IconWithDescription, PromptForm, StyledLink, Text } from 'components';
-import { CDN_URL } from 'constants';
+import { Button, ButtonAction, ButtonPasskeySignup, IconWithDescription, PromptForm, Text } from 'components';
 
 import fingerprintBlue from 'assets/fingerprint-blue.svg';
 import deviceGlobeAccent from 'assets/device-globe/accent.svg';
@@ -11,7 +10,7 @@ export const PasskeyEnrollment = () => {
 	return (
 		<PromptForm title='Create a passkey for All Applications on this device'>
 			<IconWithDescription
-				mask={`${CDN_URL}/${fingerprintBlue}`}
+				mask={fingerprintBlue}
 				title='No need to remember a password'
 				description='With passkeys, you can use things like your fingerprint or face to login.'
 			/>
@@ -32,7 +31,7 @@ export const PasskeyEnrollment = () => {
 				<ButtonAction action='abort_passkey_enrollment'>Continue without passkeys</ButtonAction>
 			</Text>
 			<Text className='text-center'>
-				<StyledLink link='back'>Go back</StyledLink>
+				<Button link='back'>Go back</Button>
 			</Text>
 		</PromptForm>
 	);

@@ -5,7 +5,7 @@ import { BasicInput } from 'components/inputs/BasicInput';
 import { errors, fieldErrors, submitted_form_data, pwd, username } from 'signals';
 
 interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	label: string;
+	label?: string;
 	name: string;
 	postInput?: JSX.Element;
 }

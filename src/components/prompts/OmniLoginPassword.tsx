@@ -1,4 +1,4 @@
-import { Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
+import { Button, Input, InputEditLink, PromptForm, PromptSubmitButton, Text } from 'components';
 import { isLoading, isOmni, pwd, state, updateTxData, username } from 'signals';
 import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'utils';
 
@@ -167,7 +167,7 @@ export const OmniLoginPassword = () => {
 			<Input label='Password' name='password' type='password' autoComplete='current-password' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 			<Text>
-				Already have an account? <StyledLink link='login'>Log in</StyledLink>
+				Already have an account? <Button link='login'>Log in</Button>
 			</Text>
 		</PromptForm>
 	);

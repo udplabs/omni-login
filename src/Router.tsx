@@ -39,7 +39,8 @@ export const Router = () => {
 	});
 
 	return (
-		<div className='overflow-hidden bg-black items-center flex justify-center justify-items-center h-screen'>
+		// <div className='overflow-hidden bg-black items-center flex justify-center justify-items-center h-screen'>
+		<main className='widget-auto-layout'>
 			<Routes>
 				<Route path='/signup'>
 					{/* <Route path='identifier' element={<OmniLogin />} /> */}
@@ -56,6 +57,6 @@ export const Router = () => {
 				<Route path='/passkeys'>{/* TODO - implement passkeys */}</Route>
 				<Route path='*' element={<LoginId />} />
 			</Routes>
-		</div>
+		</main>
 	);
 };

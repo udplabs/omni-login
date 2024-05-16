@@ -1,5 +1,5 @@
 import passkeyLogo from 'assets/passkey-logo.svg';
-import { ButtonWhite } from 'components';
+import { Button } from 'components';
 import { isWebauthnPlatformAvailable, uint8ArrayToBase64Url } from 'utils';
 import { public_key } from 'signals';
 
@@ -52,10 +52,10 @@ export const ButtonPasskeyLogin = () => {
 	return (
 		<>
 			<input type='hidden' name='action' value='default' />
-			<ButtonWhite onClick={onClickHandler}>
+			<Button className='secondary' onClick={onClickHandler}>
 				<img className='inline-block mr-4' src={passkeyLogo} />
 				Continue with a passkey
-			</ButtonWhite>
+			</Button>
 		</>
 	);
 };
