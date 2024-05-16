@@ -1,21 +1,17 @@
-import { Input, LinkButton } from 'components';
+import { Input, Button } from 'components';
 
 interface IInputEditLinkProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	name: string;
-	label: string;
+	label?: string;
 	link: UL.TransactionLinkTypes;
 }
 
 export const InputEditLink = ({ link, ...attributes }: IInputEditLinkProps) => {
 	return (
 		<Input
-			{...attributes}
+			{...{ className: 'edit-link-input', ...attributes }}
 			readOnly
-			postInput={
-				<LinkButton {...{ link }} className='py-1 px-2 mx-2'>
-					Edit
-				</LinkButton>
-			}
+			postInput={<Button {...{ link }}>Edit</Button>}
 		/>
 	);
 };

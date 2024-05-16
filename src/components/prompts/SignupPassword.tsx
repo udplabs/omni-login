@@ -1,4 +1,4 @@
-import { ButtonAction, Input, InputEditLink, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
+import { Button, ButtonAction, Input, InputEditLink, PromptForm, PromptSubmitButton, Text } from 'components';
 
 export const SignupPassword = () => {
 	return (
@@ -7,7 +7,7 @@ export const SignupPassword = () => {
 			<Input label='Password' name='password' type='password' autoComplete='new-password' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 			<Text className='text-center'>
-				Already have an account? <StyledLink link='login'>Log in</StyledLink>
+				Already have an account? <Button link='login'>Log in</Button>
 			</Text>
 			<Text className='text-center'>
 				<ButtonAction action='back'>Go back</ButtonAction>

@@ -1,11 +1,27 @@
-import { ButtonWhite } from 'components';
-import { SOCIAL_CONNECTIONS } from 'constants';
+import { Button } from 'components';
+import { socialConnections } from 'signals';
+import google from 'assets/connections/google.svg';
+import ms from 'assets/connections/ms.svg';
+
+const SOCIAL_CONNECTIONS: UL.SocialConnections = {
+	'google-oauth2': { name: 'Google', icon: google },
+	windowslive: { name: 'Microsoft Account', icon: ms },
+};
 
 export const SocialConnections = () => {
-	return SOCIAL_CONNECTIONS.map((connection) => (
-		<ButtonWhite type='submit' name='connection' value={connection.connection}>
-			<img className='inline-block mr-4' width='20' height='20' src={connection.icon} />
-			Continue with {connection.name}
-		</ButtonWhite>
-	));
+	console.log(google);
+	return (
+		<div key='social-connections' className='social-connections'>
+			{socialConnections.value.map((connection) => {
+				const { icon, name } = SOCIAL_CONNECTIONS[connection] || {};
+
+				return (
+					<Button key={`${connection}-button`} type='submit' name='connection' className='secondary' value={connection}>
+						<span className='social-icon' style={{ backgroundImage: `url("${icon}")` }} />
+						<span className='social-label'>{`Continue with ${name}`}</span>
+					</Button>
+				);
+			})}
+		</div>
+	);
 };

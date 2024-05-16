@@ -1,4 +1,4 @@
-import { DetectBrowserCapabilities, Input, PromptForm, PromptSubmitButton, StyledLink, Text } from 'components';
+import { Button, DetectBrowserCapabilities, Input, PromptForm, PromptSubmitButton, Text } from 'components';
 
 export const SignupId = () => {
 	return (
@@ -10,7 +10,7 @@ export const SignupId = () => {
 			<Input label='Email address*' name='email' inputMode='email' autoCapitalize='none' spellCheck='false' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 			<Text className='text-center'>
-				Already have an account? <StyledLink link='login'>Log in</StyledLink>
+				Already have an account? <Button link='login'>Log in</Button>
 			</Text>
 			<DetectBrowserCapabilities />
 		</PromptForm>

@@ -1,10 +1,10 @@
 import {
+	Button,
 	ButtonPasskeyLogin,
 	DetectBrowserCapabilities,
 	Input,
 	PromptForm,
 	PromptSubmitButton,
-	StyledLink,
 	Text,
 } from 'components';
 import { passkey_config as passkeyConfig } from 'signals';
@@ -20,7 +20,7 @@ export const LoginId = () => {
 			<Input type='email' label='Email address' name='username' autoFocus />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 			<Text>
-				Don't have an account? <StyledLink link='signup'>Sign up</StyledLink>
+				Don't have an account? <Button link='signup'>Sign up</Button>
 			</Text>
 			<DetectBrowserCapabilities />
 		</PromptForm>

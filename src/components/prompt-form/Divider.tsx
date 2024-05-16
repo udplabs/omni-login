@@ -13,7 +13,6 @@ export const Divider = ({ text }: IDividerProps) => {
 				'uppercase',
 				'text-xs',
 				'text-gray-800',
-				'mb-4',
 
 				'before:border-b',
 				'before:border-neutral-300',
@@ -24,6 +23,7 @@ export const Divider = ({ text }: IDividerProps) => {
 				'after:border-neutral-300',
 				'after:grow',
 				"after:content-[' ']",
+				'divider',
 			].join(' ')}
 		>
 			<span className='grow-[0.2]'>{text}</span>
