@@ -1,11 +1,13 @@
 import { Button } from 'components';
 import { socialConnections } from 'signals';
+import apple from 'assets/connections/apple.svg';
 import google from 'assets/connections/google.svg';
 import ms from 'assets/connections/ms.svg';
 
 const SOCIAL_CONNECTIONS: UL.SocialConnections = {
 	'google-oauth2': { name: 'Google', icon: google },
 	windowslive: { name: 'Microsoft Account', icon: ms },
+	apple: { name: 'Apple', icon: apple },
 };
 
 export const SocialConnections = () => {
