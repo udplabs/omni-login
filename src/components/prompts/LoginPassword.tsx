@@ -14,7 +14,6 @@ export const LoginPassword = () => {
 		<PromptForm
 			title='Enter your password'
 			description='Enter your password for login0 to continue to All Applications'
-			includeSocialConnections
 		>
 			<InputEditLink name='username' link='edit_email' />
 			<Input autoFocus {...{ label: 'Password', name: 'password', type: 'password', value: pwd.value ?? undefined }} />
