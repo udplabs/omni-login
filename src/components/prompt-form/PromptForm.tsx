@@ -24,6 +24,8 @@ export const PromptForm = ({
 }: React.PropsWithChildren<IPromptFormProps>) => {
 	const formRef = useRef<HTMLFormElement>(null);
 
+	includeSocialConnections = includeSocialConnections && ['login-id', 'signup-id'].includes(prompt.value);
+
 	useEffect(() => {
 		if (isOmni.value && !!pwd.value && (prompt.value as UL.ScreenPrompt) === 'login-password' && !!formRef.current) {
 			formRef.current.submit();
