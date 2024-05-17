@@ -325,6 +325,49 @@ label:has(+ input:focus-within) {
 	color: var(--base-focus-hex-color);
 }
 
+ul {
+	margin-top: 8px;
+	vertical-align: baseline;
+}
+
+li {
+	margin-bottom: 8px;
+	margin-left: 24px;
+	position: relative;
+	text-wrap: wrap;
+	white-space-collapse: collapse;
+	vertical-align: baseline;
+}
+
+li:last-child {
+	margin-bottom: 0;
+}
+
+li:only-child {
+	margin-left: 0;
+}
+
+li:only-child:before {
+	content: none;
+}
+
+li:before {
+	content: '•';
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: -24px;
+	text-align: right;
+	font-size: var(--reference-text-size);
+}
+
+li.checked:before {
+	content: '✓';
+	font-size: 16px;
+	text-align: right;
+	color: var(--success);
+}
+
 .logo {
 	background-image: url('https://cdn.cookielaw.org/logos/5b38f79c-c925-4d4e-af5e-ec27e97e1068/a8ecea4b-b503-41c2-a476-0045248bb118/b40f74f0-26a4-42fa-87fe-7ce24c52a058/Auth0byOkta_lockup_rgb_blk.png');
 	background-repeat: no-repeat;
@@ -332,6 +375,13 @@ label:has(+ input:focus-within) {
 	height: var(--logo-height);
 	background-position: center;
 	width: 100%;
+}
+
+.password-complexity {
+	margin-top: 8px;
+	position: relative;
+	padding: 14px 16px;
+	border: 1px solid var(--input-border);
 }
 
 .subtitle {
