@@ -161,16 +161,18 @@ export const OmniLoginPassword = () => {
 			{...{
 				title: 'Create Your Account',
 				onSubmit,
-				description: 'Set your password for login0 to continue to All Applications',
+				description: 'Set your password to continue.',
+				alternateAction: (
+					<Text>
+						Already have an account? <Button link='login'>Log in</Button>
+					</Text>
+				),
 			}}
 		>
 			<InputEditLink label='Email address*' name='email' link='edit_email' />
 			<Input label='Password' name='password' type='password' autoComplete='current-password' autoFocus />
 			<PasswordComplexity />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
-			<Text>
-				Already have an account? <Button link='login'>Log in</Button>
-			</Text>
 		</PromptForm>
 	);
 };

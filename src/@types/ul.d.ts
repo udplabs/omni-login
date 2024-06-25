@@ -17,7 +17,9 @@ declare global {
 
 		interface BaseUnsafeTransactionData {
 			transaction_params: {
-				/* optional custom query params. */
+				/**
+				 * Optional custom query params that have been prefaced with `ext-`.
+				 */
 				[key: string]: string;
 			};
 		}
@@ -68,6 +70,15 @@ declare global {
 			| 'signup-id'
 			| 'signup-password'
 			| 'passkeys';
+
+		interface SafeTransactionParams {
+			/**
+			 * Optional custom query params that have been parsed and the `ext-` removed.
+			 */
+			[key: string]: string | boolean | number;
+			flow?: 'signup' | 'qr_code';
+			redirect?: string;
+		}
 
 		interface SocialConnection {
 			clientId: string;

@@ -1,6 +1,7 @@
 export * from './Login';
 export * from './LoginId';
 export * from './LoginPassword';
+export * from './LoginQR';
 export * from './OmniLogin';
 export * from './OmniLoginPassword';
 export * from './PasskeyEnrollment';

@@ -5,6 +5,7 @@ import { base64UrlToUint8Array, getSocialConnections } from 'utils';
 const { VITE_DEFAULT_SCREEN_PROMPT: DEFAULT_SCREEN_PROMPT, VITE_DEFAULT_SCREEN: DEFAULT_SCREEN } = import.meta.env;
 
 let tx_data = (window as any).universal_login_transaction_data as UL.TransactionData;
+console.log(JSON.stringify(tx_data, null, 2));
 
 effect(() => {
 	console.group('=== SIGNALS: TX DATA ===');
@@ -18,10 +19,13 @@ export const actions = signal<UL.TransactionAction>(tx_data.actions);
 export const client = signal<UL.Client>(tx_data.client);
 export const errors = signal(tx_data.errors || []);
 export const fieldErrors = signal<UL.Error[]>([]);
+export const lastUsedSocial = signal<string | null>(null);
 export const links = signal(tx_data.links);
 // export const prompt = signal(tx_data.value.prompt ?? DEFAULT_SCREEN_PROMPT);
 export const prompt = signal(tx_data.prompt?.name ?? DEFAULT_SCREEN_PROMPT);
 export const screen = signal(tx_data.screen?.name ?? DEFAULT_SCREEN);
+export const txParams = signal<UL.SafeTransactionParams>(parseTxParams(tx_data?.unsafe_data?.transaction_params ?? {}));
+
 export const state = signal(tx_data.state);
 export const submitted_form_data = signal<UL.UnsafeTransactionData['submitted_form_data']>(
 	tx_data.unsafe_data?.submitted_form_data ?? {}
@@ -62,8 +66,6 @@ export const socialConnections = computed(() => getSocialConnections(client.valu
 export function updateTxData(data: UL.TransactionData) {
 	tx_data = data;
 
-	console.log(JSON.stringify(data, null, 2));
-
 	actions.value = data?.actions ?? actions.value;
 	client.value = data?.client ?? client.value;
 	errors.value = data.errors ?? errors.value;
@@ -73,4 +75,49 @@ export function updateTxData(data: UL.TransactionData) {
 	state.value = data.state;
 	submitted_form_data.value = data.unsafe_data?.submitted_form_data ?? submitted_form_data.value;
 	passkey_config.value = data?.passkey_config ?? passkey_config.value;
+	txParams.value = parseTxParams(data?.unsafe_data?.transaction_params, txParams.value);
+}
+
+function parseTxParams(
+	data: UL.BaseUnsafeTransactionData['transaction_params'] = {},
+	params: UL.SafeTransactionParams = {}
+) {
+	for (const [_key, value] of Object.entries(data)) {
+		const key = _key.replace('ext-', '');
+
+		if (value == 'true') {
+			params = {
+				...params,
+				[key]: true,
+			};
+			continue;
+		}
+
+		if (value == 'false') {
+			params = {
+				...params,
+				[key]: false,
+			};
+			continue;
+		}
+
+		const float = parseFloat(value);
+
+		if (!isNaN(float) && isFinite(float)) {
+			params = {
+				...params,
+				[key]: float,
+			};
+			continue;
+		}
+
+		if (value !== undefined && value !== null && value !== '') {
+			params = {
+				...params,
+				[key]: value.trim(),
+			};
+			continue;
+		}
+	}
+	return params;
 }

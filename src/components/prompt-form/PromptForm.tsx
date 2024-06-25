@@ -6,17 +6,17 @@ import { Spinner } from './Spinner';
 import { Text } from 'components';
 import { isLoading, isOmni, prompt, pwd, state } from 'signals';
 
-interface IPromptFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
-	title: string;
-	description?: string;
+interface IPromptFormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'title'> {
+	title?: string | null;
+	description?: string | null;
 	includeSocialConnections?: boolean;
 	alternateAction?: JSX.Element | null;
 }
 
 export const PromptForm = ({
 	children,
-	title,
-	description,
+	title = 'Welcome',
+	description = 'Login to continue',
 	includeSocialConnections,
 	alternateAction,
 	onSubmit,
@@ -33,36 +33,40 @@ export const PromptForm = ({
 	}, []);
 
 	return (
-		<section className='widget'>
-			<div className='form-container'>
-				<div style={{ display: isLoading.value ? 'none' : undefined }}>
+		<section className='_prompt-outer'>
+			<div className='_prompt-container'>
+				<div className='_prompt' style={{ display: isLoading.value ? 'none' : undefined }}>
 					<header>
 						<div className='logo' />
-						<h1 className='text-center text-2xl mb-4' style={{ marginTop: '24px' }}>
-							{title}
-						</h1>
-						{description && (
+						{!!title && (
+							<h1 className='text-center text-2xl mb-4' style={{ marginTop: '24px' }}>
+								{title}
+							</h1>
+						)}
+						{!!description && (
 							<div>
 								<Text className='text-center'>{description}</Text>
 							</div>
 						)}
-						<input type='hidden' name='state' value={state.value} />
 					</header>
-					<form
-						{...{
-							ref: formRef,
-							onSubmit,
-							method: !!onSubmit ? undefined : 'POST',
-							...attributes,
-						}}
-					>
-						<PromptErrors className='mb-4' />
-						{/* If social_buttons_layout is top it could re-order these via HTML instead of css (in ULP) */}
-						{children}
+					<div className='_prompt-body'>
+						<form
+							{...{
+								ref: formRef,
+								onSubmit,
+								method: !!onSubmit ? undefined : 'POST',
+								...attributes,
+							}}
+						>
+							<input type='hidden' name='state' value={state.value} />
+							<PromptErrors className='mb-4' />
+							{/* If social_buttons_layout is top it could re-order these via HTML instead of css (in ULP) */}
+							{children}
+						</form>
+						{!!alternateAction && <div className='_prompt-alternate-action'>{alternateAction}</div>}
 						{(alternateAction || includeSocialConnections) && <Divider text='Or' />}
-						{alternateAction}
 						{includeSocialConnections && <SocialConnections />}
-					</form>
+					</div>
 				</div>
 				{isLoading.value && <Spinner />}
 			</div>
