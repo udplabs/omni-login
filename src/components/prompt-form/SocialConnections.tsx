@@ -1,11 +1,11 @@
 import { useRef } from 'react';
-import { Button } from 'components';
-import { socialConnections } from 'signals';
+import { Button, GoogleButton } from 'components';
+
 import apple from 'assets/connections/apple.svg';
 import google from 'assets/connections/google.svg';
 import ms from 'assets/connections/ms.svg';
 
-import { isQRCode, state } from 'signals';
+import { enableGtap, isQRCode, socialConnections, state } from 'signals';
 
 const SOCIAL_CONNECTIONS: UL.SocialConnections = {
 	'google-oauth2': { name: 'Google', icon: google },
@@ -68,11 +68,15 @@ export const SocialConnections = () => {
 					<form {...{ method: 'POST', onSubmit, ref }}>
 						<input type='hidden' name='state' value={state.value} />
 						<input type='hidden' name='connection' value={connection} />
-						<Button key={`${connection}-button`} type='submit' className='secondary'>
-							<span className='social-icon' style={{ backgroundImage: `url("${icon}")` }} />
-							<span className='social-label'>{`Continue with ${name}`}</span>
-							{lastUsed === connection && <span className='recent'>Last Used</span>}
-						</Button>
+						{enableGtap.value && connection === 'google-oauth2' ? (
+							<GoogleButton />
+						) : (
+							<Button key={`${connection}-button`} type='submit' className='secondary'>
+								<span className='social-icon' style={{ backgroundImage: `url("${icon}")` }} />
+								<span className='social-label'>{`Continue with ${name}`}</span>
+								{lastUsed === connection && <span className='recent'>Last Used</span>}
+							</Button>
+						)}
 					</form>
 				);
 			})}

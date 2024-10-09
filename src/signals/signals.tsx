@@ -5,7 +5,6 @@ import { base64UrlToUint8Array, getSocialConnections } from 'utils';
 const { VITE_DEFAULT_SCREEN_PROMPT: DEFAULT_SCREEN_PROMPT, VITE_DEFAULT_SCREEN: DEFAULT_SCREEN } = import.meta.env;
 
 let tx_data = (window as any).universal_login_transaction_data as UL.TransactionData;
-console.log(JSON.stringify(tx_data, null, 2));
 
 effect(() => {
 	console.group('=== SIGNALS: TX DATA ===');
@@ -24,6 +23,7 @@ export const links = signal(tx_data.links);
 // export const prompt = signal(tx_data.value.prompt ?? DEFAULT_SCREEN_PROMPT);
 export const prompt = signal(tx_data.prompt?.name ?? DEFAULT_SCREEN_PROMPT);
 export const screen = signal(tx_data.screen?.name ?? DEFAULT_SCREEN);
+export const enableGtap = signal(false);
 export const txParams = signal<UL.SafeTransactionParams>(parseTxParams(tx_data?.unsafe_data?.transaction_params ?? {}));
 
 export const state = signal(tx_data.state);
@@ -82,42 +82,36 @@ function parseTxParams(
 	data: UL.BaseUnsafeTransactionData['transaction_params'] = {},
 	params: UL.SafeTransactionParams = {}
 ) {
-	for (const [_key, value] of Object.entries(data)) {
+	for (const [_key, _value] of Object.entries(data)) {
 		const key = _key.replace('ext-', '');
+		let value: string | number | boolean = _value;
 
-		if (value == 'true') {
-			params = {
-				...params,
-				[key]: true,
-			};
-			continue;
+		if (typeof value === 'string') {
+			if (value !== undefined && value !== null && value !== '') {
+				value = value.trim();
+			}
+
+			if (value === 'true') {
+				value = true;
+			} else if (value === 'false') {
+				value = false;
+			}
+		} else if (typeof value === 'number') {
+			const float = parseFloat(value);
+
+			if (!isNaN(float) && isFinite(float)) {
+				value = float;
+			}
 		}
 
-		if (value == 'false') {
-			params = {
-				...params,
-				[key]: false,
-			};
-			continue;
+		if (typeof value === 'boolean') {
+			if (key === 'gtap') {
+				enableGtap.value = value;
+			}
 		}
 
-		const float = parseFloat(value);
-
-		if (!isNaN(float) && isFinite(float)) {
-			params = {
-				...params,
-				[key]: float,
-			};
-			continue;
-		}
-
-		if (value !== undefined && value !== null && value !== '') {
-			params = {
-				...params,
-				[key]: value.trim(),
-			};
-			continue;
-		}
+		params[key] = value;
 	}
+
 	return params;
 }

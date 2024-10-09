@@ -17,4 +17,6 @@ interface ImportMetaEnv {
 	 * @example `Gpd2XzXW1kajkjLysFyS19gAAEyNOwSr|google-oauth2|windowslive,nLXTcpxZLhOsvPdx4EgsCii5vYfyXYb0|google-oauth2`
 	 */
 	readonly VITE_SOCIAL_CONNECTIONS?: string;
+	readonly VITE_GOOGLE_CLIENT_ID?: string;
+	readonly VITE_GOOGLE_CLIENT_SECRET?: string;
 }
