@@ -10,6 +10,7 @@ export const deviceCodeResponse = signal<GetDeviceCodeResponse | undefined>(unde
  */
 export const deviceCodeTTL = signal(9000);
 export const isQRCode = signal(false);
+export const qrCodeEnabled = signal(false);
 
 effect(() => {
 	isQRCode.value = txParams.value?.flow === 'qr_code';
@@ -22,7 +23,7 @@ effect(() => {
 });
 
 effect(() => {
-	if (isQRCode.value) {
+	if (qrCodeEnabled.value && isQRCode.value) {
 		if (!deviceCodeResponse.value) {
 			isLoading.value = true;
 

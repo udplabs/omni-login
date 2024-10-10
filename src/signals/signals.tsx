@@ -1,6 +1,7 @@
 import { computed, effect, signal } from '@preact/signals-react';
 
 import { base64UrlToUint8Array, getSocialConnections } from 'utils';
+import { qrCodeEnabled } from './qrCode';
 
 const { VITE_DEFAULT_SCREEN_PROMPT: DEFAULT_SCREEN_PROMPT, VITE_DEFAULT_SCREEN: DEFAULT_SCREEN } = import.meta.env;
 
@@ -107,6 +108,9 @@ function parseTxParams(
 		if (typeof value === 'boolean') {
 			if (key === 'gtap') {
 				enableGtap.value = value;
+			}
+			if (key === 'qr') {
+				qrCodeEnabled.value = value;
 			}
 		}
 

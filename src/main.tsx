@@ -8,6 +8,11 @@ import 'styles/index.css';
 const rootElement = document.createElement('div');
 rootElement.id = 'root';
 
+const referrerTag = document.createElement('meta');
+referrerTag.name = 'referrer';
+referrerTag.content = 'origin';
+document.head.appendChild(referrerTag);
+
 document.body.appendChild(rootElement);
 document.body.style.overflow = 'hidden';
 
