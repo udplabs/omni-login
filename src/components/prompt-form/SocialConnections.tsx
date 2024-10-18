@@ -89,7 +89,10 @@ export const SocialConnections = () => {
 						<input type='hidden' name='connection' value={connection} />
 						{username.value && <input type='hidden' name='login_hint' value={username.value} />}
 						{enableGtap.value && connection === 'google-oauth2' ? (
-							<GoogleButton formRef={formRefs.current[connection]} {...{ onSubmit }} />
+							<GoogleButton
+								formRef={formRefs.current[connection]}
+								{...{ onSubmit, containerProps: { id: 'gtap-button' } }}
+							/>
 						) : (
 							<Button key={`${connection}-button`} type='submit' className='secondary'>
 								<span className='social-icon' style={{ backgroundImage: `url("${icon}")` }} />
