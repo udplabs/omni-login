@@ -24,6 +24,9 @@ export const GoogleButton = ({ formRef, onSubmit }: GoogleButtonProps) => {
 	return (
 		<GoogleLogin
 			auto_select
+			use_fedcm_for_prompt
+			itp_support
+			useOneTap
 			{...{
 				text: 'continue_with',
 				onError: () => console.log('Something went wrong w/ Google...'),
@@ -31,6 +34,9 @@ export const GoogleButton = ({ formRef, onSubmit }: GoogleButtonProps) => {
 				width: '320px',
 				logo_alignment: 'left',
 				allowed_parent_origin: window.location.origin,
+				cancel_on_tap_outside: false,
+				ux_mode: 'popup',
+				context: 'use',
 			}}
 		/>
 	);
