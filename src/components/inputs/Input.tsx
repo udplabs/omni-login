@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 import { BasicInput } from 'components/inputs/BasicInput';
+import { PasswordComplexity } from 'components/inputs/PasswordComplexity';
 
 import { errors, fieldErrors, submitted_form_data, pwd, username } from 'signals';
 
@@ -8,9 +9,10 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
 	name: string;
 	postInput?: JSX.Element;
+	hidePwdComplexity?: boolean;
 }
 
-export const Input = ({ label, name, postInput, type, ...attributes }: IInputProps) => {
+export const Input = ({ label, name, postInput, type, hidePwdComplexity = false, ...attributes }: IInputProps) => {
 	// TODO: this can be made way better using signals, but not right now
 	useSignalEffect(() => {
 		let updatedField = false;
@@ -32,10 +34,6 @@ export const Input = ({ label, name, postInput, type, ...attributes }: IInputPro
 		fieldErrors.value = newErrors;
 	});
 
-	// if (type === 'password') {
-	// 	return <BasicInput errors={fieldErrors.value} {...{ label, name, postInput, type, ...attributes }} />;
-	// }
-
 	const [inputValue, setInputValue] = useState(submitted_form_data.value[name]);
 
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,11 +49,14 @@ export const Input = ({ label, name, postInput, type, ...attributes }: IInputPro
 	};
 
 	return (
-		<BasicInput
-			value={inputValue}
-			onChange={handleOnChange}
-			errors={fieldErrors.value}
-			{...{ label, name, postInput, type, ...attributes }}
-		/>
+		<>
+			<BasicInput
+				value={inputValue}
+				onChange={handleOnChange}
+				errors={fieldErrors.value}
+				{...{ label, name, postInput, type, ...attributes }}
+			/>
+			{!hidePwdComplexity && type === 'password' && <PasswordComplexity />}
+		</>
 	);
 };

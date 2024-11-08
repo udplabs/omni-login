@@ -1,7 +1,6 @@
 import { Button, Input, InputEditLink, PromptForm, PromptSubmitButton, Text } from 'components';
 import { isLoading, isOmni, pwd, state, updateTxData, username } from 'signals';
 import { isBrave, isWebauthnAvailable, isWebauthnPlatformAvailable } from 'utils';
-import { PasswordComplexity } from './PasswordComplexity';
 
 export const OmniLoginPassword = () => {
 	const onSubmit: React.FormEventHandler = async (event) => {
@@ -171,7 +170,6 @@ export const OmniLoginPassword = () => {
 		>
 			<InputEditLink label='Email address*' name='email' link='edit_email' />
 			<Input label='Password' name='password' type='password' autoComplete='current-password' autoFocus />
-			<PasswordComplexity />
 			<PromptSubmitButton>Continue</PromptSubmitButton>
 		</PromptForm>
 	);
